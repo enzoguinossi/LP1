@@ -1,9 +1,9 @@
 programa {
     //Nome,genero(0 = homem,1 = mulher),peso(kg),altura(cm)
-    cadeia pacientes[10][]
+    cadeia pacientes[10][4]
     inteiro opcaoEscolhida
     funcao inicio() {
-
+        mostrarMenu()
     }
 
     funcao vazio mostrarMenu() {
@@ -26,7 +26,7 @@ programa {
     }
 
     funcao vazio mostrarIMC() {
-    
+
     }
 
     funcao real calcularIMC(indicePaciente){
