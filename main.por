@@ -20,20 +20,40 @@ programa {
                     cadastrarPaciente()
                 pare
                 caso 2:
+                    se (ultimoIndicePaciente  == -1) {
+		                escreva("Não há pacientes cadastrados no sistema.")
+		                enterContinuar()
+                    } senao {
                     indicePacienteEscolhido = escolherPaciente()
-                    mostrarIMC(indicePacienteEscolhido)
+                    mostrarIMC(indicePacienteEscolhido) 
+                    }
                 pare
                 caso 3:
+	                se (ultimoIndicePaciente  == -1) {
+			            escreva("Não há pacientes cadastrados no sistema.")
+			            enterContinuar()
+			        } senao {
                     indicePacienteEscolhido = escolherPaciente()
-                    exibirPesoIdeal(indicePacienteEscolhido)
+                    exibirPesoIdeal(indicePacienteEscolhido) 
+                    }
                 pare
                 caso 4:
+                    se (ultimoIndicePaciente  == -1) {
+		                escreva("Não há pacientes cadastrados no sistema.")
+		                enterContinuar()
+		            } senao {
                     indicePacienteEscolhido = escolherPaciente()
-                    exibirEstadoNutricional(indicePacienteEscolhido)
+                    exibirEstadoNutricional(indicePacienteEscolhido) 
+                    }
                 pare
                 caso 5:
+                    se (ultimoIndicePaciente  == -1) {
+		                escreva("Não há pacientes cadastrados no sistema.")
+		                enterContinuar()
+		            } senao {
                 	indicePacienteEscolhido = escolherPaciente()
-                	exibirGastoEnergetico(indicePacienteEscolhido)
+                	exibirGastoEnergetico(indicePacienteEscolhido) 
+                    }
                 pare
                 caso 6:
                     escreva("\nEncerrando o programa...\n")
@@ -55,7 +75,6 @@ programa {
         cadeia inputUsuario = ""
         inteiro idPaciente = -1, indicePacienteEncontrado = -1
         logico inputValido = falso, pacienteEncontrado = falso
-
         faca {
             escreva("Insira o ID do paciente a ser consultado: \n")
             leia(inputUsuario)
@@ -184,7 +203,6 @@ programa {
         real IMC = (peso / (altura * altura))
 	    retorne IMC
 	}
-
     //=============================================================
     // PESO IDEAL
     //=============================================================
@@ -280,7 +298,7 @@ programa {
          "Estado Nutricional: " + estadoNutricional + "\n" +
 
          "*************************************************\n"+
-         "    ",msgFinal + "\n" +
+         "    " + msgFinal + "\n" +
          "*************************************************\n")
          escreva(resultado)
          enterContinuar()
@@ -330,7 +348,7 @@ programa {
             "Resultado — Gasto Energético \n" +
             "***********************************\n" +
             "Paciente: " + pacientes[indicePaciente][1] + "\n" +
-            "Gasto Energético: " + gastoEnergetico + "\n" +
+            "Gasto Energético: " + gastoEnergetico + " kcal \n" +
             "***********************************\n")
          escreva(resultado)
          enterContinuar()
@@ -382,7 +400,7 @@ programa {
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 13094; 
+ * @POSICAO-CURSOR = 1981; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
