@@ -8,9 +8,16 @@ programa {
     logico executando = verdadeiro
     
     funcao inicio() {
-        escreva("\n\n============ SISTEMA DE AVALIAÇÃO FÍSICA 2000 ============\n\n")
-        Util.aguarde(1000)
+        cadeia titulo =
+            (" _____ _     _                      _                    _ _                    ___ _     _         \n" +
+            "|   __|_|___| |_ ___ _____ ___    _| |___    ___ _ _ ___| |_|___ ___ ___ ___   |  _|_|___|_|___ ___ \n" +
+            "|__   | |_ -|  _| -_|     | .'|  | . | -_|  | .'| | | .'| | | .'|  _| .'| . |  |  _| |_ -| |  _| .'|\n" +
+            "|_____|_|___|_| |___|_|_|_|__,|  |___|___|  |__,|\\_/|__,|_|_|__,|___|__,|___|  |_| |_|___|_|___|__,|\n"
+        )
 
+        escreva("\n\n\n",titulo,"\n\n\n")
+        Util.aguarde(1000)
+        limpa()
         faca {
             opcaoMenu = mostrarMenuPrincipal()
             limpa()
@@ -116,18 +123,21 @@ programa {
         logico valido = falso
 
         faca {
-            escreva("+---------------------------------+\n")
-            escreva("|   Sistema de avaliação física   |\n")
-            escreva("+---------------------------------+\n")
-            escreva("|                                 |\n")
-            escreva("|  1 - Cadastrar Paciente         |\n")
-            escreva("|  2 - Calcular IMC               |\n")
-            escreva("|  3 - Exibir Peso Ideal          |\n")
-            escreva("|  4 - Mostrar Estado Nutricional |\n")
-            escreva("|  5 - Calcular Gasto Energético  |\n")
-            escreva("|  6 - Sair                       |\n")
-            escreva("|                                 |\n")
-            escreva("+---------------------------------+\n")
+            cadeia menuPrincipal = (
+                "╔══════════════════════════════════════════════════════╗\n" +
+                "║            SISTEMA DE AVALIAÇÃO FÍSICA               ║\n" +
+                "╠══════════════════════════════════════════════════════╣\n" +
+                "║                                                      ║\n" +
+                "║            1 - Cadastrar Paciente                    ║\n" +
+                "║            2 - Calcular IMC                          ║\n" +
+                "║            3 - Exibir Peso Ideal                     ║\n" +
+                "║            4 - Mostrar Estado Nutricional            ║\n" +
+                "║            5 - Calcular Gasto Energético             ║\n" +
+                "║            6 - Sair                                  ║\n" +
+                "║                                                      ║\n" +
+                "╚══════════════════════════════════════════════════════╝\n"
+            )
+            escreva(menuPrincipal)
             escreva("Escolha: ")
             leia(inputOpcao)
 
@@ -263,7 +273,7 @@ programa {
     // PESO IDEAL
     //=============================================================
     funcao vazio exibirPesoIdeal(inteiro indicePaciente) {
-
+        limpa()
         cadeia nome = pacientes[indicePaciente][1]
         real pesoAtual = Tipos.cadeia_para_real(pacientes[indicePaciente][3])
         real pesoIdeal = calcularPesoIdeal(indicePaciente)
@@ -272,22 +282,26 @@ programa {
         cadeia msgFinal
 
         se (diferenca > 0) {
-            msgFinal = ("Você deve emagrecer " + Tipos.real_para_cadeia(diferenca) + " kg.")
+            msgFinal = ("Você deve emagrecer " + Tipos.real_para_cadeia(diferenca) + " kg para alcançar no seu peso ideal.")
         } senao se (diferenca < 0) {
-            msgFinal = ("Você deve ganhar " + Tipos.real_para_cadeia(-diferenca) + " kg.")
+            msgFinal = ("Você deve ganhar " + Tipos.real_para_cadeia(-diferenca) + " kg para alcançar no seu peso ideal.")
         } senao {
             msgFinal = ("Você já está no peso ideal!")
         }
 
-        cadeia resultado = 
-        ("***********************************\n" +
-         "Resultados — Peso Ideal\n" +
-         "***********************************\n" +
-         "Paciente: " + nome + "\n" +
-         "Peso Ideal: " + Tipos.real_para_cadeia(pesoIdeal) + " kg\n" +
-         msgFinal + "\n" +
-         "***********************************\n")
-
+        cadeia resultado =
+            (
+            "╔═══════════════════════════════════════════════════════════════════════════════════════════╗\n" +
+            "║                                    RESULTADOS — PESO IDEAL                                ║\n" +
+            "╠═══════════════════════════════════════════════════════════════════════════════════════════╣\n" +
+            "║                                                                                           ║\n" +
+            "║   Paciente..............: " + nome +                                                      "\n" +
+            "║   Peso Ideal............: " + Tipos.real_para_cadeia(pesoIdeal) + " kg" +                 "\n" +
+            "║                                                                                           ║\n" +
+            "╠═══════════════════════════════════════════════════════════════════════════════════════════╣\n" +
+            "║   Seu peso atual é " + pesoAtual + " kg. " + msgFinal +                                    "\n" +
+            "╚═══════════════════════════════════════════════════════════════════════════════════════════╝\n"
+            )
         escreva(resultado)
         enterContinuar()
     }
@@ -320,7 +334,7 @@ programa {
         {"Peso Normal", "Manter dieta e atividades físicas já praticadas"},      // 18.5 a 24.9
         {"Sobrepeso", "Inicar dieta e atividades para perda de peso"},           // 25 a 29.9
         {"Obesidade Severa", "Iniciar dieta, atividades e medicação"},           // 30 a 39.9
-        {"Obesidade Mórbida", "Avaliar possibilidadae cirúrgica"}}               // >= 40
+        {"Obesidade Mórbida", "Avaliar possibilidade cirúrgica"} }               // >= 40
 
         se (imc < 18.5) {
             indiceEstado = 0
@@ -341,21 +355,24 @@ programa {
         cadeia estadoNutricional = estadosNutricionais[indiceEstado][0]
         cadeia msgFinal = estadosNutricionais[indiceEstado][1]
 
-        cadeia resultado = 
-        ("*************************************************\n" +
-         "     Relatório do Estado Nutricional\n" +
-         "*************************************************\n" +
-         "          Paciente: " + pacientes[indicePaciente][1] + "\n" +
-         "              Peso: " + pacientes[indicePaciente][3] + " kg\n" +
-         "            Altura: " + pacientes[indicePaciente][4] + " cm\n" +
-         "             Idade: " + pacientes[indicePaciente][5] + " anos\n" +
-         "               IMC: " + imc + "\n" +
-         "        Peso Ideal: " + calcularPesoIdeal(indicePaciente) + "\n" +
-         "Estado Nutricional: " + estadoNutricional + "\n" +
-
-         "*************************************************\n"+
-         "    " + msgFinal + "\n" +
-         "*************************************************\n")
+        cadeia resultado =
+        (
+        "╔════════════════════════════════════════════════════════════════════════════════════╗\n" +
+        "║                          RELATÓRIO DO ESTADO NUTRICIONAL                           ║\n" +
+        "╠════════════════════════════════════════════════════════════════════════════════════╣\n" +
+        "║                                                                                     \n" +
+        "║   Paciente..............: " + pacientes[indicePaciente][1]       +                 "\n" +
+        "║   Peso..................: " + pacientes[indicePaciente][3]       + " kg"   +       "\n" +
+        "║   Altura................: " + pacientes[indicePaciente][4]       + " cm"   +       "\n" +
+        "║   Idade.................: " + pacientes[indicePaciente][5]       + " anos" +       "\n" +
+        "║   IMC...................: " + imc                                +                 "\n" +
+        "║   Peso Ideal............: " + calcularPesoIdeal(indicePaciente)  +                 "\n" +
+        "║   Estado Nutricional....: " + estadoNutricional                  +                 "\n" +
+        "║                                                                                    ║\n" +
+        "╠════════════════════════════════════════════════════════════════════════════════════╣\n" +
+        "║   "                         + msgFinal                           +                 "\n" +
+        "╚════════════════════════════════════════════════════════════════════════════════════╝\n"
+        )
          escreva(resultado)
          enterContinuar()
     }
@@ -371,15 +388,18 @@ programa {
 
         faca {
             limpa()
-            escreva("+---------------------------------------------------+\n")
-            escreva("|   Insira o grau de atividade física do paciente   |\n")
-            escreva("+---------------------------------------------------+\n")
-            escreva("|                                                   |\n")
-            escreva("|                    1 - Baixo                      |\n")
-            escreva("|                    2 - Médio                      |\n")
-            escreva("|                    3 - Alto                       |\n")
-            escreva("|                                                   |\n")
-            escreva("+---------------------------------------------------+\n")
+           cadeia menu = (
+                "╔══════════════════════════════════════════════════════════════════════╗\n" +
+                "║         INSIRA O GRAU DE ATIVIDADE FÍSICA DO PACIENTE                ║\n" +
+                "╠══════════════════════════════════════════════════════════════════════╣\n" +
+                "║                                                                      ║\n" +
+                "║                         1 - Baixo                                    ║\n" +
+                "║                         2 - Médio                                    ║\n" +
+                "║                         3 - Alto                                     ║\n" +
+                "║                                                                      ║\n" +
+                "╚══════════════════════════════════════════════════════════════════════╝\n"
+                )
+            escreva(menu)
             escreva("Escolha: ")
             leia(inputOpcao)
             se (Tipos.cadeia_e_inteiro(inputOpcao, 10)) {
@@ -399,13 +419,18 @@ programa {
          } enquanto(nao valido)
          gastoEnergetico = calcularGastoEnergetico(indicePaciente, opcao)
          
-         cadeia resultado = 
-            ("***********************************\n" +
-            "Resultado — Gasto Energético \n" +
-            "***********************************\n" +
-            "Paciente: " + pacientes[indicePaciente][1] + "\n" +
-            "Gasto Energético: " + gastoEnergetico + " kcal \n" +
-            "***********************************\n")
+         cadeia resultado =
+            (
+            "╔════════════════════════════════════════════════════════════════════════════════════╗\n" +
+            "║                           RESULTADO — GASTO ENERGÉTICO                             ║\n" +
+            "╠════════════════════════════════════════════════════════════════════════════════════╣\n" +
+            "║                                                                                    ║\n" +
+            "║   Paciente..............: " + pacientes[indicePaciente][1] +                        "\n" +
+            "║   Gasto Energético......: " + gastoEnergetico + " kcal" +                           "\n" +
+            "║                                                                                    ║\n" +
+            "╚════════════════════════════════════════════════════════════════════════════════════╝\n"
+            )
+         limpa()
          escreva(resultado)
          enterContinuar()
          
